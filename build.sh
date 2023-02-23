@@ -95,6 +95,20 @@ build_zstd x86_64 x86_64
 build_zstd armv7a armeabi-v7a eabi
 build_zstd aarch64 arm64-v8a
 
+# Build ZFP
+build_zfp() { # [arch] [android_abi] [compiler_abi]
+    echo "===================== ZFP ====================="
+    ls
+    cd zfp
+    mkdir build  
+    cd build  
+    cmake ..  
+    cmake --build . --config Release  
+    mv ./lib/libzfp.so.1.0.0 ../../SDRPlusPlus/misc_modules/scanner_cross_cross/libs/libzfp.so
+    cd ../../
+}
+build_zfp
+
 # Build FFTW3
 build_fftw() { # [android_abi]
     echo "===================== FFTW3 ($1) ====================="
