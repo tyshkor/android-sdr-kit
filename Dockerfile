@@ -4,7 +4,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV ENV="/etc/profile"
 
 COPY install.sh /root
-COPY build_zfp.sh /root
 COPY build.sh /root
 COPY package.sh /root
 

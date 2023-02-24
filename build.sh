@@ -57,6 +57,8 @@ wget https://github.com/libusb/libusb/releases/download/v1.0.25/libusb-1.0.25.ta
 tar -xvf libusb-1.0.25.tar.bz2
 mv libusb-1.0.25 libusb
 
+git clone https://github.com/LLNL/zfp.git 
+
 git clone --recurse-submodules https://github.com/gnuradio/volk
 
 git clone https://github.com/airspy/airspyhf
@@ -94,6 +96,22 @@ build_zstd i686 x86
 build_zstd x86_64 x86_64
 build_zstd armv7a armeabi-v7a eabi
 build_zstd aarch64 arm64-v8a
+
+# Build ZFP
+build_zfp() { # [arch] [android_abi] [compiler_abi]
+    echo "===================== ZFP ====================="
+    cd zfp
+    mkdir build  
+    cd build  
+    cmake ..  
+    make $MAKEOPTS
+    make DESTDIR=$SDR_KIT_ROOT/$1 install
+    cd ../../
+}
+build_zfp x86
+build_zfp x86_64
+build_zfp armeabi-v7a
+build_zfp arm64-v8a
 
 # Build FFTW3
 build_fftw() { # [android_abi]
