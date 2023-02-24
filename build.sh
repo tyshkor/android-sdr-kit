@@ -85,7 +85,7 @@ mv libad9361-iio-0.2 libad9361
 build_zfp() { # [arch] [android_abi] [compiler_abi]
     echo "===================== ZFP ($1) ====================="
     cd zfp
-    mkdir build  
+    mkdir -p build  
     cd build  
     cmake ..  
     cmake --build . --config Release
@@ -93,12 +93,12 @@ build_zfp() { # [arch] [android_abi] [compiler_abi]
     echo "===================== $SDR_KIT_ROOT ====================="
     ls
 
-    mkdir $1
+    mkdir -p $1
     cd $1
     echo "===================== $1 ====================="
     ls
 
-    mkdir lib
+    mkdir -p lib
     cd lib
     echo "===================== lib ====================="
     ls
