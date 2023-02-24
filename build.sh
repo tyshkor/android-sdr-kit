@@ -90,9 +90,17 @@ build_zfp() { # [arch] [android_abi] [compiler_abi]
     cmake ..  
     cmake --build . --config Release
     cd $SDR_KIT_ROOT
-    mkdir $1
+    echo "===================== $SDR_KIT_ROOT ====================="
+    ls
+
     cd $1
-    mkdir build
+    echo "===================== $1 ====================="
+    ls
+
+    cd lib
+    echo "===================== lib ====================="
+    ls
+
     cd $SDR_KIT_BUILD/zfp/build/
     mv ./lib/libzfp.so.1.0.0 $SDR_KIT_ROOT/$1/lib
     cd ../../
