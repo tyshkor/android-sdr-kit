@@ -42,7 +42,6 @@ echo "export SDR_KIT_ROOT=$SDR_KIT_ROOT" >> /etc/profile
 
 # Do build
 cd $SDR_KIT_BUILD
-chmod +x /root/build_zfp.sh
 chmod +x /root/build.sh
 chmod +x /root/package.sh
 /root/build.sh
