@@ -98,7 +98,7 @@ build_zfp() { # [arch] [android_abi] [compiler_abi]
     echo "===================== $1 ====================="
     ls
 
-    mkdir build
+    mkdir lib
     cd lib
     echo "===================== lib ====================="
     ls
