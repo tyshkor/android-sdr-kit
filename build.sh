@@ -81,6 +81,22 @@ wget https://github.com/analogdevicesinc/libad9361-iio/archive/refs/tags/v0.2.ta
 tar -zxvf v0.2.tar.gz
 mv libad9361-iio-0.2 libad9361
 
+# Build ZFP
+build_zfp() { # [arch] [android_abi] [compiler_abi]
+    echo "===================== ZFP ($1) ====================="
+    cd zfp
+    mkdir build  
+    cd build  
+    cmake ..  
+    cmake --build . --config Release
+    mv ./lib/libzfp.so.1.0.0 $SDR_KIT_ROOT/$1/lib
+    cd ../../
+}
+build_zfp x86
+build_zfp x86_64
+build_zfp armeabi-v7a
+build_zfp arm64-v8a
+
 # Build ZSTD
 build_zstd() { # [arch] [android_abi] [compiler_abi]
     echo "===================== ZSTD ($2) ====================="
@@ -96,22 +112,6 @@ build_zstd i686 x86
 build_zstd x86_64 x86_64
 build_zstd armv7a armeabi-v7a eabi
 build_zstd aarch64 arm64-v8a
-
-# Build ZFP
-build_zfp() { # [arch] [android_abi] [compiler_abi]
-    echo "===================== ZFP ====================="
-    cd zfp
-    mkdir build  
-    cd build  
-    cmake ..  
-    cmake --build . --config Release
-    mv ./lib/libzfp.so.1.0.0 $SDR_KIT_ROOT/$1/lib
-    cd ../../
-}
-build_zfp x86
-build_zfp x86_64
-build_zfp armeabi-v7a
-build_zfp arm64-v8a
 
 # Build FFTW3
 build_fftw() { # [android_abi]
