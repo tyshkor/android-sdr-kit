@@ -105,8 +105,7 @@ build_zfp() { # [arch] [android_abi] [compiler_abi]
     cd build  
     cmake ..  
     cmake --build . --config Release
-    make $MAKEOPTS
-    make DESTDIR=$SDR_KIT_ROOT/$1 install
+    mv ./lib/libzfp.so.1.0.0 $SDR_KIT_ROOT/$1/lib
     cd ../../
 }
 build_zfp x86
