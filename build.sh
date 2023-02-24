@@ -93,10 +93,12 @@ build_zfp() { # [arch] [android_abi] [compiler_abi]
     echo "===================== $SDR_KIT_ROOT ====================="
     ls
 
+    mkdir $1
     cd $1
     echo "===================== $1 ====================="
     ls
 
+    mkdir build
     cd lib
     echo "===================== lib ====================="
     ls
