@@ -57,7 +57,7 @@ wget https://github.com/libusb/libusb/releases/download/v1.0.25/libusb-1.0.25.ta
 tar -xvf libusb-1.0.25.tar.bz2
 mv libusb-1.0.25 libusb
 
-# git clone https://github.com/LLNL/zfp.git 
+git clone https://github.com/LLNL/zfp.git 
 
 git clone --recurse-submodules https://github.com/gnuradio/volk
 
@@ -81,7 +81,7 @@ wget https://github.com/analogdevicesinc/libad9361-iio/archive/refs/tags/v0.2.ta
 tar -zxvf v0.2.tar.gz
 mv libad9361-iio-0.2 libad9361
 
-Build ZFP
+# Build ZFP
 build_zfp() { # [arch] [android_abi] [compiler_abi]
     echo "===================== ZFP ($1) ====================="
     cd zfp
