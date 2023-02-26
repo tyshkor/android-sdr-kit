@@ -92,7 +92,7 @@ build_zfp() { # [arch] [android_abi] [compiler_abi]
     ls
     cd $SDR_KIT_BUILD/zfp/build/
 
-    cmake $(gen_cmake_args $1) ..  
+    cmake $(gen_cmake_args $1) -DBUILD_EXAMPLES=0 -DZFP_WITH_OPENMP=0 ..  
     #cmake -DDESTINATION=$SDR_KIT_ROOT/$1 .. 
     make $MAKEOPTS
     make DESTDIR=$SDR_KIT_ROOT/$1 install
