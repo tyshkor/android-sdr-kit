@@ -85,6 +85,8 @@ wget https://github.com/analogdevicesinc/libad9361-iio/archive/refs/tags/v0.2.ta
 tar -zxvf v0.2.tar.gz
 mv libad9361-iio-0.2 libad9361
 
+# -DHAVE_STD_REGEX=0 -DHAVE_POSIX_REGEX=0 -DHAVE_STEADY_CLOCK=0 
+
 # Build snappy
 build_snappy() { # [android_abi]
     echo "===================== snappy ($1) ====================="
@@ -97,39 +99,35 @@ build_snappy() { # [android_abi]
 }
 build_snappy x86_64
 build_snappy x86
-build_snappy armeabi-v7a
-build_snappy arm64-v8a
 
-# Build ZFP
-# build_snappy() { # [arch] [android_abi] [compiler_abi]
-#     echo "===================== ZFP ($1) ====================="
-#     cd snappy
-#     mkdir -p build  
-#     cd build  
+# Build snappy arm
+build_snappy_arm() { # [arch] [android_abi] [compiler_abi]
+    echo "===================== snappy ($1) ====================="
+    cd snappy
+    mkdir -p build  
+    cd build  
 
-#     cmake $(gen_cmake_args $1) ..  
-#     #cmake -DDESTINATION=$SDR_KIT_ROOT/$1 .. 
-#     make $MAKEOPTS
-#     make DESTDIR=$SDR_KIT_ROOT/$1 install
-#     cd $SDR_KIT_ROOT
+    cmake $(gen_cmake_args $1) -DHAVE_STD_REGEX=0 -DHAVE_POSIX_REGEX=0 -DHAVE_STEADY_CLOCK=0 ..  
+    #cmake -DDESTINATION=$SDR_KIT_ROOT/$1 .. 
+    make $MAKEOPTS
+    make DESTDIR=$SDR_KIT_ROOT/$1 install
+    cd $SDR_KIT_ROOT
 
-#     mkdir -p $1
-#     cd $1
+    mkdir -p $1
+    cd $1
 
-#     mkdir -p lib
-#     mkdir -p include
+    mkdir -p lib
+    mkdir -p include
 
-#     cd $SDR_KIT_BUILD/snappy/build/
-#     # mv ./lib/libzfp.so.1.0.0 $SDR_KIT_ROOT/$1/lib/libzfp.so
-#     # cd ..
-#     # cp -r ./include/* $SDR_KIT_ROOT/$1/include/
+    cd $SDR_KIT_BUILD/snappy/build/
+    # mv ./lib/libzfp.so.1.0.0 $SDR_KIT_ROOT/$1/lib/libzfp.so
+    # cd ..
+    # cp -r ./include/* $SDR_KIT_ROOT/$1/include/
 
-#     cd ../../
-# }
-# build_snappy x86
-# build_snappy x86_64
-# build_snappy armeabi-v7a
-# build_snappy arm64-v8a
+    cd ../../
+}
+build_snappy_arm armeabi-v7a
+build_snappy_arm arm64-v8a
 
 # build_zfp_x86_64() { # [arch] [android_abi] [compiler_abi]
 #     echo "===================== ZFP (x86-64) ====================="
