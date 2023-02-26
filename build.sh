@@ -89,7 +89,8 @@ build_zfp() { # [arch] [android_abi] [compiler_abi]
     cd build  
     cmake $(gen_cmake_args $1) ..  
     #cmake -DDESTINATION=$SDR_KIT_ROOT/$1 .. 
-    cmake --build . --config Release
+    make $MAKEOPTS
+    make DESTDIR=$SDR_KIT_ROOT/$1 install
     cd $SDR_KIT_ROOT
 
     mkdir -p $1
