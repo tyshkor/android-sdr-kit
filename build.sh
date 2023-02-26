@@ -154,8 +154,8 @@ build_zstd() { # [arch] [android_abi] [compiler_abi]
     patchelf --set-soname libzstd.so $SDR_KIT_ROOT/$2/lib/libzstd.so
     cd ..
 }
-# build_zstd i686 x86
-# build_zstd x86_64 x86_64
+build_zstd i686 x86
+build_zstd x86_64 x86_64
 build_zstd armv7a armeabi-v7a eabi
 build_zstd aarch64 arm64-v8a
 
@@ -169,8 +169,8 @@ build_fftw() { # [android_abi]
     make DESTDIR=$SDR_KIT_ROOT/$1 install
     cd ../../
 }
-# build_fftw x86
-# build_fftw x86_64
+build_fftw x86
+build_fftw x86_64
 build_fftw armeabi-v7a
 build_fftw arm64-v8a
 
@@ -185,8 +185,8 @@ build_codec2() { # [android_abi]
     make DESTDIR=$SDR_KIT_ROOT/$1 install
     cd ../../
 }
-# build_codec2 x86
-# build_codec2 x86_64
+build_codec2 x86
+build_codec2 x86_64
 build_codec2 armeabi-v7a
 build_codec2 arm64-v8a
 
@@ -196,23 +196,23 @@ build_libusb() {
     cd libusb/android/jni
     $ANDROID_SDK_ROOT/ndk/$ANDROID_NDK_VERSION/ndk-build
     cd ..
-    # mkdir -p $SDR_KIT_ROOT/x86/lib
-    # mkdir -p $SDR_KIT_ROOT/x86_64/lib
+    mkdir -p $SDR_KIT_ROOT/x86/lib
+    mkdir -p $SDR_KIT_ROOT/x86_64/lib
     mkdir -p $SDR_KIT_ROOT/armeabi-v7a/lib
     mkdir -p $SDR_KIT_ROOT/arm64-v8a/lib
-    # cp libs/x86/* $SDR_KIT_ROOT/x86/lib
-    # cp libs/x86_64/* $SDR_KIT_ROOT/x86_64/lib
+    cp libs/x86/* $SDR_KIT_ROOT/x86/lib
+    cp libs/x86_64/* $SDR_KIT_ROOT/x86_64/lib
     cp libs/armeabi-v7a/* $SDR_KIT_ROOT/armeabi-v7a/lib
     cp libs/arm64-v8a/* $SDR_KIT_ROOT/arm64-v8a/lib
     cd ..
-    # mkdir -p $SDR_KIT_ROOT/x86/include
-    # mkdir -p $SDR_KIT_ROOT/x86_64/include
+    mkdir -p $SDR_KIT_ROOT/x86/include
+    mkdir -p $SDR_KIT_ROOT/x86_64/include
     mkdir -p $SDR_KIT_ROOT/armeabi-v7a/include
     mkdir -p $SDR_KIT_ROOT/arm64-v8a/include
-    # cp libusb/libusb.h $SDR_KIT_ROOT/x86/include
-    # cp libusb/libusbi.h $SDR_KIT_ROOT/x86/include
-    # cp libusb/libusb.h $SDR_KIT_ROOT/x86_64/include
-    # cp libusb/libusbi.h $SDR_KIT_ROOT/x86_64/include
+    cp libusb/libusb.h $SDR_KIT_ROOT/x86/include
+    cp libusb/libusbi.h $SDR_KIT_ROOT/x86/include
+    cp libusb/libusb.h $SDR_KIT_ROOT/x86_64/include
+    cp libusb/libusbi.h $SDR_KIT_ROOT/x86_64/include
     cp libusb/libusb.h $SDR_KIT_ROOT/armeabi-v7a/include
     cp libusb/libusbi.h $SDR_KIT_ROOT/armeabi-v7a/include
     cp libusb/libusb.h $SDR_KIT_ROOT/arm64-v8a/include
@@ -231,8 +231,8 @@ build_volk() { # [android_abi]
     make DESTDIR=$SDR_KIT_ROOT/$1 install
     cd ../../
 }
-# build_volk x86
-# build_volk x86_64
+build_volk x86
+build_volk x86_64
 build_volk armeabi-v7a
 build_volk arm64-v8a
 
@@ -246,8 +246,8 @@ build_libairspyhf() { # [android_abi]
     make DESTDIR=$SDR_KIT_ROOT/$1 install
     cd ../../
 }
-# build_libairspyhf x86
-# build_libairspyhf x86_64
+build_libairspyhf x86
+build_libairspyhf x86_64
 build_libairspyhf armeabi-v7a
 build_libairspyhf arm64-v8a
 
@@ -261,8 +261,8 @@ build_libairspy() { # [android_abi]
     make DESTDIR=$SDR_KIT_ROOT/$1 install
     cd ../../
 }
-# build_libairspy x86
-# build_libairspy x86_64
+build_libairspy x86
+build_libairspy x86_64
 build_libairspy armeabi-v7a
 build_libairspy arm64-v8a
 
@@ -276,8 +276,8 @@ build_libhackrf() { # [android_abi]
     make DESTDIR=$SDR_KIT_ROOT/$1 install
     cd ../../../
 }
-# build_libhackrf x86
-# build_libhackrf x86_64
+build_libhackrf x86
+build_libhackrf x86_64
 build_libhackrf armeabi-v7a
 build_libhackrf arm64-v8a
 
@@ -291,8 +291,8 @@ build_librtlsdr() { # [android_abi]
     make DESTDIR=$SDR_KIT_ROOT/$1 install
     cd ../../
 }
-# build_librtlsdr x86
-# build_librtlsdr x86_64
+build_librtlsdr x86
+build_librtlsdr x86_64
 build_librtlsdr armeabi-v7a
 build_librtlsdr arm64-v8a
 
@@ -306,8 +306,8 @@ build_libxml2() { # [android_abi]
     make DESTDIR=$SDR_KIT_ROOT/$1 install
     cd ../../
 }
-# build_libxml2 x86
-# build_libxml2 x86_64
+build_libxml2 x86
+build_libxml2 x86_64
 build_libxml2 armeabi-v7a
 build_libxml2 arm64-v8a
 
@@ -321,8 +321,8 @@ build_libiio() { # [android_abi]
     make DESTDIR=$SDR_KIT_ROOT/$1 install
     cd ../../
 }
-# build_libiio x86
-# build_libiio x86_64
+build_libiio x86
+build_libiio x86_64
 build_libiio armeabi-v7a
 build_libiio arm64-v8a
 
@@ -338,7 +338,7 @@ build_libad9361() { # [android_abi]
     cp libad9361.so $SDR_KIT_ROOT/$1/lib/
     cd ../../
 }
-# build_libad9361 x86
-# build_libad9361 x86_64
+build_libad9361 x86
+build_libad9361 x86_64
 build_libad9361 armeabi-v7a
 build_libad9361 arm64-v8a
