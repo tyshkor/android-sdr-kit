@@ -87,6 +87,11 @@ build_zfp() { # [arch] [android_abi] [compiler_abi]
     cd zfp
     mkdir -p build  
     cd build  
+    cd /root/Android/ndk/25.1.8937393/toolchains/llvm/prebuilt
+    echo "===================== /root/Android/ndk/25.1.8937393/toolchains/llvm/prebuilt ====================="
+    ls
+    cd $SDR_KIT_BUILD/zfp/build/
+
     cmake $(gen_cmake_args $1) ..  
     #cmake -DDESTINATION=$SDR_KIT_ROOT/$1 .. 
     make $MAKEOPTS
