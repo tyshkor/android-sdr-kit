@@ -57,7 +57,8 @@ wget https://github.com/libusb/libusb/releases/download/v1.0.25/libusb-1.0.25.ta
 tar -xvf libusb-1.0.25.tar.bz2
 mv libusb-1.0.25 libusb
 
-git clone https://github.com/LLNL/zfp.git 
+#git clone https://github.com/LLNL/zfp.git 
+git clone https://github.com/google/snappy.git
 
 git clone --recurse-submodules https://github.com/gnuradio/volk
 
@@ -82,17 +83,13 @@ tar -zxvf v0.2.tar.gz
 mv libad9361-iio-0.2 libad9361
 
 # Build ZFP
-build_zfp() { # [arch] [android_abi] [compiler_abi]
+build_snappy() { # [arch] [android_abi] [compiler_abi]
     echo "===================== ZFP ($1) ====================="
-    cd zfp
+    cd snappy
     mkdir -p build  
     cd build  
-    cd /root/Android/ndk/25.1.8937393/toolchains/llvm/prebuilt
-    echo "===================== /root/Android/ndk/25.1.8937393/toolchains/llvm/prebuilt ====================="
-    ls
-    cd $SDR_KIT_BUILD/zfp/build/
 
-    cmake $(gen_cmake_args $1) -DBUILD_EXAMPLES=0 -DZFP_WITH_OPENMP=0 ..  
+    cmake $(gen_cmake_args $1) ..  
     #cmake -DDESTINATION=$SDR_KIT_ROOT/$1 .. 
     make $MAKEOPTS
     make DESTDIR=$SDR_KIT_ROOT/$1 install
@@ -104,44 +101,45 @@ build_zfp() { # [arch] [android_abi] [compiler_abi]
     mkdir -p lib
     mkdir -p include
 
-    cd $SDR_KIT_BUILD/zfp/build/
+    cd $SDR_KIT_BUILD/snappy/build/
     # mv ./lib/libzfp.so.1.0.0 $SDR_KIT_ROOT/$1/lib/libzfp.so
     # cd ..
     # cp -r ./include/* $SDR_KIT_ROOT/$1/include/
 
     cd ../../
 }
-build_zfp x86
-build_zfp armeabi-v7a
-build_zfp arm64-v8a
+build_snappy x86
+build_snappy x86_64
+build_snappy armeabi-v7a
+build_snappy arm64-v8a
 
-build_zfp_x86_64() { # [arch] [android_abi] [compiler_abi]
-    echo "===================== ZFP (x86-64) ====================="
-    cd zfp
-    mkdir -p build  
-    cd build 
+# build_zfp_x86_64() { # [arch] [android_abi] [compiler_abi]
+#     echo "===================== ZFP (x86-64) ====================="
+#     cd zfp
+#     mkdir -p build  
+#     cd build 
 
-    cmake $(gen_cmake_args $1) -DBUILD_EXAMPLES=0 -DZFP_WITH_OPENMP=0 ..  
-    cmake -DDESTINATION=$SDR_KIT_ROOT/$1 .. 
-    # make $MAKEOPTS
-    # make DESTDIR=$SDR_KIT_ROOT/$1 install
-    cd $SDR_KIT_ROOT
+#     cmake $(gen_cmake_args $1) -DBUILD_EXAMPLES=0 -DZFP_WITH_OPENMP=0 ..  
+#     cmake -DDESTINATION=$SDR_KIT_ROOT/$1 .. 
+#     # make $MAKEOPTS
+#     # make DESTDIR=$SDR_KIT_ROOT/$1 install
+#     cd $SDR_KIT_ROOT
 
-    mkdir -p $1
-    cd $1
+#     mkdir -p $1
+#     cd $1
 
-    mkdir -p lib
-    mkdir -p include
+#     mkdir -p lib
+#     mkdir -p include
 
-    cd $SDR_KIT_BUILD/zfp/build/
-    mv ./lib/libzfp.so $SDR_KIT_ROOT/$1/lib/libzfp.so
-    cd ..
-    cp -r ./include/* $SDR_KIT_ROOT/$1/include/
+#     cd $SDR_KIT_BUILD/zfp/build/
+#     mv ./lib/libzfp.so $SDR_KIT_ROOT/$1/lib/libzfp.so
+#     cd ..
+#     cp -r ./include/* $SDR_KIT_ROOT/$1/include/
 
-    cd ..
-}
+#     cd ..
+# }
 
-build_zfp_x86_64 x86_64
+# build_zfp_x86_64 x86_64
 
 # Build ZSTD
 build_zstd() { # [arch] [android_abi] [compiler_abi]
