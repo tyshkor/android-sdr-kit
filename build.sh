@@ -59,6 +59,9 @@ mv libusb-1.0.25 libusb
 
 #git clone https://github.com/LLNL/zfp.git 
 git clone https://github.com/google/snappy.git
+cd snappy
+git submodule update --init
+cd ..
 
 git clone --recurse-submodules https://github.com/gnuradio/volk
 
