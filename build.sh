@@ -127,8 +127,8 @@ build_zfp_x86_64() { # [arch] [android_abi] [compiler_abi]
     # make DESTDIR=$SDR_KIT_ROOT/$1 install
     cd $SDR_KIT_ROOT
 
-    mkdir -p x86_64
-    cd x86_64
+    mkdir -p $1
+    cd $1
 
     mkdir -p lib
     mkdir -p include
@@ -141,7 +141,7 @@ build_zfp_x86_64() { # [arch] [android_abi] [compiler_abi]
     cd ..
 }
 
-build_zfp_x86_64
+build_zfp_x86_64 x86_64
 
 # Build ZSTD
 build_zstd() { # [arch] [android_abi] [compiler_abi]
