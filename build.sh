@@ -58,10 +58,11 @@ tar -xvf libusb-1.0.25.tar.bz2
 mv libusb-1.0.25 libusb
 
 #git clone https://github.com/LLNL/zfp.git 
-git clone https://github.com/google/snappy.git
-cd snappy
-git submodule update --init
-cd ..
+# git clone https://github.com/google/snappy.git
+# cd snappy
+# git submodule update --init
+# cd ..
+git clone https://github.com/Blosc/c-blosc.git
 
 git clone --recurse-submodules https://github.com/gnuradio/volk
 
@@ -87,47 +88,49 @@ mv libad9361-iio-0.2 libad9361
 
 # -DHAVE_STD_REGEX=0 -DHAVE_POSIX_REGEX=0 -DHAVE_STEADY_CLOCK=0 
 
-# Build snappy
-build_snappy() { # [android_abi]
-    echo "===================== snappy ($1) ====================="
-    cd snappy
+# Build c_blosc
+build_c_blosc() { # [android_abi]
+    echo "===================== c-blosc ($1) ====================="
+    cd c-blosc
     mkdir -p build_$1 && cd build_$1
     cmake $(gen_cmake_args $1) ..
     make $MAKEOPTS
     make DESTDIR=$SDR_KIT_ROOT/$1 install
     cd ../../
 }
-build_snappy x86_64
-build_snappy x86
+build_c_blosc x86_64
+build_c_blosc x86
+build_c_blosc armeabi-v7a
+build_c_blosc arm64-v8a
 
 # Build snappy arm
-build_snappy_arm() { # [arch] [android_abi] [compiler_abi]
-    echo "===================== snappy ($1) ====================="
-    cd snappy
-    mkdir -p build  
-    cd build  
+# build_snappy_arm() { # [arch] [android_abi] [compiler_abi]
+#     echo "===================== snappy ($1) ====================="
+#     cd snappy
+#     mkdir -p build  
+#     cd build  
 
-    cmake $(gen_cmake_args $1) -DHAVE_STD_REGEX=0 -DHAVE_POSIX_REGEX=0 -DHAVE_STEADY_CLOCK=0 ..  
-    #cmake -DDESTINATION=$SDR_KIT_ROOT/$1 .. 
-    make $MAKEOPTS
-    make DESTDIR=$SDR_KIT_ROOT/$1 install
-    cd $SDR_KIT_ROOT
+#     cmake $(gen_cmake_args $1) -DHAVE_STD_REGEX=0 -DHAVE_POSIX_REGEX=0 -DHAVE_STEADY_CLOCK=0 ..  
+#     #cmake -DDESTINATION=$SDR_KIT_ROOT/$1 .. 
+#     make $MAKEOPTS
+#     make DESTDIR=$SDR_KIT_ROOT/$1 install
+#     cd $SDR_KIT_ROOT
 
-    mkdir -p $1
-    cd $1
+#     mkdir -p $1
+#     cd $1
 
-    mkdir -p lib
-    mkdir -p include
+#     mkdir -p lib
+#     mkdir -p include
 
-    cd $SDR_KIT_BUILD/snappy/build/
-    # mv ./lib/libzfp.so.1.0.0 $SDR_KIT_ROOT/$1/lib/libzfp.so
-    # cd ..
-    # cp -r ./include/* $SDR_KIT_ROOT/$1/include/
+#     cd $SDR_KIT_BUILD/snappy/build/
+#     # mv ./lib/libzfp.so.1.0.0 $SDR_KIT_ROOT/$1/lib/libzfp.so
+#     # cd ..
+#     # cp -r ./include/* $SDR_KIT_ROOT/$1/include/
 
-    cd ../../
-}
-build_snappy_arm armeabi-v7a
-build_snappy_arm arm64-v8a
+#     cd ../../
+# }
+# build_snappy_arm armeabi-v7a
+# build_snappy_arm arm64-v8a
 
 # build_zfp_x86_64() { # [arch] [android_abi] [compiler_abi]
 #     echo "===================== ZFP (x86-64) ====================="
