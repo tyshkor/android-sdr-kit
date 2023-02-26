@@ -104,8 +104,8 @@ build_zfp() { # [arch] [android_abi] [compiler_abi]
 
     cd ../../
 }
-build_zfp x86
-build_zfp x86_64
+# build_zfp x86
+# build_zfp x86_64
 build_zfp armeabi-v7a
 build_zfp arm64-v8a
 
