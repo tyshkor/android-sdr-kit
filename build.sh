@@ -98,10 +98,10 @@ build_c_blosc() { # [android_abi]
     make DESTDIR=$SDR_KIT_ROOT/$1 install
     cd ../../
 }
-build_c_blosc x86_64
 build_c_blosc x86
 build_c_blosc armeabi-v7a
 build_c_blosc arm64-v8a
+build_c_blosc x86_64
 
 # Build snappy arm
 # build_snappy_arm() { # [arch] [android_abi] [compiler_abi]
