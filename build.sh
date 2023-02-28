@@ -57,6 +57,8 @@ wget https://github.com/libusb/libusb/releases/download/v1.0.25/libusb-1.0.25.ta
 tar -xvf libusb-1.0.25.tar.bz2
 mv libusb-1.0.25 libusb
 
+git clone https://github.com/LLNL/zfp.git 
+
 git clone --recurse-submodules https://github.com/gnuradio/volk
 
 git clone https://github.com/airspy/airspyhf
@@ -78,6 +80,35 @@ mv libiio-0.24 libiio
 wget https://github.com/analogdevicesinc/libad9361-iio/archive/refs/tags/v0.2.tar.gz
 tar -zxvf v0.2.tar.gz
 mv libad9361-iio-0.2 libad9361
+
+#Build ZFP
+build_zfp() { # [arch] [android_abi] [compiler_abi]
+    echo "===================== ZFP ($1) ====================="
+    cd zfp
+    mkdir -p build  
+    cd build  
+
+    cmake $(gen_cmake_args $1) -DBUILD_EXAMPLES=0 -DZFP_WITH_OPENMP=0 ..  
+    #cmake -DDESTINATION=$SDR_KIT_ROOT/$1 .. 
+    make $MAKEOPTS
+    make DESTDIR=$SDR_KIT_ROOT/$1 install
+    cd $SDR_KIT_ROOT
+
+    mkdir -p $1
+    cd $1
+
+    mkdir -p lib
+    mkdir -p include
+
+    cd $SDR_KIT_BUILD/zfp/build/
+    # mv ./lib/libzfp.so.1.0.0 $SDR_KIT_ROOT/$1/lib/libzfp.so
+    # cd ..
+    # cp -r ./include/* $SDR_KIT_ROOT/$1/include/
+
+    cd ../../
+}
+build_zfp armeabi-v7a
+build_zfp arm64-v8a
 
 # Build ZSTD
 build_zstd() { # [arch] [android_abi] [compiler_abi]
