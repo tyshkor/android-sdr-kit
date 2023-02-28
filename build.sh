@@ -84,7 +84,7 @@ tar -zxvf v0.2.tar.gz
 mv libad9361-iio-0.2 libad9361
 
 #Build ZFP
-build_snappy_arm() { # [arch] [android_abi] [compiler_abi]
+build_zfp() { # [arch] [android_abi] [compiler_abi]
     echo "===================== ZFP ($1) ====================="
     cd zfp
     mkdir -p build  
