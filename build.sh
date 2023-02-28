@@ -59,8 +59,6 @@ mv libusb-1.0.25 libusb
 
 git clone https://github.com/LLNL/zfp.git 
 
-git clone https://github.com/Blosc/c-blosc.git
-
 git clone --recurse-submodules https://github.com/gnuradio/volk
 
 git clone https://github.com/airspy/airspyhf
