@@ -119,6 +119,7 @@ build_python() { # [arch] [android_abi] [compiler_abi]
     echo "===================== Python ($1) ====================="
     cd Python-3.10.10
     ./configure
+    make
     make libpython.3.10.so
     cd lib
     echo "===================== lib ($1) ====================="
