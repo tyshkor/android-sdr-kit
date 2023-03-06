@@ -59,6 +59,10 @@ mv libusb-1.0.25 libusb
 
 git clone https://github.com/LLNL/zfp.git 
 
+wget https://www.python.org/ftp/python/3.10.10/Python-3.10.10.tgz
+tar -xvf Python-3.10.10.tgz 
+
+
 git clone --recurse-submodules https://github.com/gnuradio/volk
 
 git clone https://github.com/airspy/airspyhf
@@ -109,6 +113,21 @@ build_zfp() { # [arch] [android_abi] [compiler_abi]
 }
 build_zfp armeabi-v7a
 build_zfp arm64-v8a
+
+#Build Python
+build_python() { # [arch] [android_abi] [compiler_abi]
+    echo "===================== Python ($1) ====================="
+    cd Python-3.10.10
+    ./configure
+    make libpython.3.10.so
+    cd lib
+    echo "===================== lib ($1) ====================="
+    ls
+    cd .. 
+    cd ..
+}
+build_python armeabi-v7a
+build_python arm64-v8a
 
 # Build ZSTD
 build_zstd() { # [arch] [android_abi] [compiler_abi]
