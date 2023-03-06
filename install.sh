@@ -12,6 +12,7 @@ export MAKEOPTS=-j$(nproc)
 
 # Install dependencies
 apt update -y
+apt install -y libcrypt-dev
 apt install -y wget git p7zip-full default-jdk build-essential cmake patchelf python3-mako
 
 # Install the Android tools
