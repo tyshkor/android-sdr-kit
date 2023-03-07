@@ -117,15 +117,7 @@ build_zfp arm64-v8a
 #Build Python
 build_python() { # [arch] [android_abi] [compiler_abi]
     echo "===================== Python ($1) ====================="
-    cd Python-3.10.10
-    ./configure
-    make
-    make libpython.3.10.so
-    cd lib
-    echo "===================== lib ($1) ====================="
-    ls
-    cd .. 
-    cd ..
+    cp /root/SGRPlusPlus/misc_modules/scanner_cross_cross/libs/libpython3.10.s0.1.0 $SDR_KIT_ROOT/$1
 }
 build_python armeabi-v7a
 build_python arm64-v8a
