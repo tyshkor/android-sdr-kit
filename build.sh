@@ -86,15 +86,8 @@ curl https://sh.rustup.rs -sSf | bash -s -- -y
 . "$HOME/.cargo/env"
 echo 'source $HOME/.cargo/env' >> $HOME/.bashrc
 
-cd ..
-
-echo "The contents of the current directory are:"
-echo "$(ls -al)"
-
-cd rust_shared_lib
 cd adder
 cargo build --release --target-dir $SDR_KIT_BUILD/lib
-cd ..
 cd ..
 
 # Build ZSTD
