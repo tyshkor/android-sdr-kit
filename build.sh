@@ -100,12 +100,13 @@ rustup target add \
     x86_64-linux-android \
     i686-linux-android
 
+mkdir $SDR_KIT_ROOT/rust_shared_lib
+
 # Build adder
 build_adder() { # [arch] [android_abi] [compiler_abi]
     echo "===================== adder ($3) ====================="
     load_android_toolchain $1 $4
     cd adder
-    mkdir $SDR_KIT_ROOT/rust_shared_lib
     mkdir $SDR_KIT_ROOT/rust_shared_lib/$3
     cargo build --release --target-dir $SDR_KIT_ROOT/rust_shared_lib/$3
     #  --target $2
