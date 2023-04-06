@@ -90,17 +90,18 @@ rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-andro
 
 # Build adder
 build_adder() { # [arch] [android_abi] [compiler_abi]
-    echo "===================== adder ($2) ====================="
+    echo "===================== adder ($3) ====================="
+    load_android_toolchain $1 $4
     cd adder
     mkdir $SDR_KIT_ROOT/rust_shared_lib
-    mkdir $SDR_KIT_ROOT/rust_shared_lib/$2
-    cargo build --release --target-dir $SDR_KIT_ROOT/rust_shared_lib/$2 --target $1
+    mkdir $SDR_KIT_ROOT/rust_shared_lib/$3
+    cargo build --release --target-dir $SDR_KIT_ROOT/rust_shared_lib/$3 --target $2
     cd ..
 }
-build_adder i686-linux-android x86
-build_adder x86_64-linux-android x86_64
-build_adder armv7-linux-androideabi armeabi-v7a
-build_adder aarch64-linux-android arm64-v8a
+build_adder i686 i686-linux-android x86
+build_adder x86_64 x86_64-linux-android x86_64
+build_adder armv7a armv7-linux-androideabi armeabi-v7a eabi
+build_adder aarch64 aarch64-linux-android arm64-v8a
 
 # Build ZSTD
 build_zstd() { # [arch] [android_abi] [compiler_abi]
