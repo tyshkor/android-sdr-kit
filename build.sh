@@ -111,9 +111,9 @@ build_adder() { # [arch] [android_abi] [compiler_abi]
     #  --target $2
     cd ..
 }
-# build_adder i686 i686-linux-android x86
-# build_adder x86_64 x86_64-linux-android x86_64
-# build_adder armv7a armv7-linux-androideabi armeabi-v7a eabi
+build_adder i686 i686-linux-android x86
+build_adder x86_64 x86_64-linux-android x86_64
+build_adder armv7a armv7-linux-androideabi armeabi-v7a eabi
 build_adder aarch64 aarch64-linux-android arm64-v8a
 
 # Build ZSTD
