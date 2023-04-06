@@ -1,0 +1,21 @@
+[package]
+name = "adder"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "adder"
+crate-type = ["cdylib"]
+
+[dependencies]
+env_logger = "0.10.0"
+log = "0.4.14"
+zfp-sys = {version = "*", features = ["static"]}
+
+[dependencies.tracing]
+features = ["std"]
+version = "0.1.13"
+
+[dependencies.tracing-subscriber]
+features = ["fmt", "env-filter", "std"]
+version = "0.3.9"
