@@ -6,6 +6,7 @@ load_android_toolchain() { # [arch] [compiler_abi]
     export CC="$ANDROID_NDK_TOOLCHAIN/$1-linux-android$2$ANDROID_API_LEVEL-clang"
     export CXX="$ANDROID_NDK_TOOLCHAIN/$1-linux-android$2$ANDROID_API_LEVEL-clang++"
     export AS="$ANDROID_NDK_TOOLCHAIN/$1-linux-android$2$ANDROID_API_LEVEL-as"
+    export AR="$ANDROID_NDK_TOOLCHAIN/$1-linux-android$2$ANDROID_API_LEVEL-ar"
 }
 
 load_native_toolchain() { # [arch] [compiler_abi]
@@ -13,6 +14,7 @@ load_native_toolchain() { # [arch] [compiler_abi]
     export CC="gcc"
     export CXX="g++"
     export AS="as"
+    export AR="ar"
 }
 
 gen_cmake_args() { # [android_abi]
