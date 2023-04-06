@@ -86,6 +86,8 @@ curl https://sh.rustup.rs -sSf | bash -s -- -y
 . "$HOME/.cargo/env"
 echo 'source $HOME/.cargo/env' >> $HOME/.bashrc
 
+cd ..
+
 echo "The contents of the current directory are:"
 echo "$(ls -al)"
 
