@@ -8,9 +8,9 @@ load_android_toolchain() { # [arch] [compiler_abi]
     export AS="$ANDROID_NDK_TOOLCHAIN/$1-linux-android$2$ANDROID_API_LEVEL-as"
     export AR="$ANDROID_NDK_TOOLCHAIN/$1-linux-android$2$ANDROID_API_LEVEL-ar"
     
-    echo "The contents of ANDROID_NDK_TOOLCHAIN directory are:"
-    echo "$(ls -al $ANDROID_NDK_TOOLCHAIN)"
-    exit 1
+    # echo "The contents of ANDROID_NDK_TOOLCHAIN directory are:"
+    # echo "$(ls -al $ANDROID_NDK_TOOLCHAIN)"
+    # exit 1
 }
 
 load_native_toolchain() { # [arch] [compiler_abi]
@@ -92,7 +92,13 @@ curl https://sh.rustup.rs -sSf | bash -s -- -y
 . "$HOME/.cargo/env"
 echo 'source $HOME/.cargo/env' >> $HOME/.bashrc
 
-rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
+cargo install cargo-ndk
+
+rustup target add \
+    aarch64-linux-android \
+    armv7-linux-androideabi \
+    x86_64-linux-android \
+    i686-linux-android
 
 # Build adder
 build_adder() { # [arch] [android_abi] [compiler_abi]
