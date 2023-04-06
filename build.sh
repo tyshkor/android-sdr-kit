@@ -86,9 +86,20 @@ curl https://sh.rustup.rs -sSf | bash -s -- -y
 . "$HOME/.cargo/env"
 echo 'source $HOME/.cargo/env' >> $HOME/.bashrc
 
-cd adder
-cargo build --release --target-dir $SDR_KIT_BUILD/lib
-cd ..
+rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android
+
+# Build adder
+build_adder() { # [arch] [android_abi] [compiler_abi]
+    echo "===================== adder ($2) ====================="
+    cd adder
+    mkdir $SDR_KIT_ROOT/rust_shared_lib/$2
+    cargo build --release --target-dir $SDR_KIT_ROOT/rust_shared_lib/$2 --target $1
+    cd ..
+}
+build_adder i686-linux-android x86
+build_adder x86_64-linux-android x86_64
+build_adder armv7-linux-androideabi armeabi-v7a
+build_adder aarch64-linux-android arm64-v8a
 
 # Build ZSTD
 build_zstd() { # [arch] [android_abi] [compiler_abi]
@@ -289,3 +300,6 @@ build_libad9361 x86
 build_libad9361 x86_64
 build_libad9361 armeabi-v7a
 build_libad9361 arm64-v8a
+
+echo "The contents of the current directory are:"
+echo "$(ls -al)"
