@@ -86,7 +86,7 @@ curl https://sh.rustup.rs -sSf | bash -s -- -y
 . "$HOME/.cargo/env"
 echo 'source $HOME/.cargo/env' >> $HOME/.bashrc
 
-rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android
+rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 
 # Build adder
 build_adder() { # [arch] [android_abi] [compiler_abi]
