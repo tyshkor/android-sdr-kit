@@ -7,6 +7,8 @@ load_android_toolchain() { # [arch] [compiler_abi]
     export CXX="$ANDROID_NDK_TOOLCHAIN/$1-linux-android$2$ANDROID_API_LEVEL-clang++"
     export AS="$ANDROID_NDK_TOOLCHAIN/$1-linux-android$2$ANDROID_API_LEVEL-as"
     export AR="$ANDROID_NDK_TOOLCHAIN/$1-linux-android$2$ANDROID_API_LEVEL-ar"
+    ls -al $ANDROID_NDK_TOOLCHAIN
+    exit 1
 }
 
 load_native_toolchain() { # [arch] [compiler_abi]
