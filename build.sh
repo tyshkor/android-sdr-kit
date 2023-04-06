@@ -83,7 +83,7 @@ apt install -y clang
 
 apt install -y curl
 curl https://sh.rustup.rs -sSf | bash -s -- -y
-source "$HOME/.cargo/env"
+. "$HOME/.cargo/env"
 echo 'source $HOME/.cargo/env' >> $HOME/.bashrc
 
 cd rust_shared_lib
