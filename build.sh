@@ -323,7 +323,7 @@ echo "$(ls -al)"
 show_contents() { # [arch] [android_abi] [compiler_abi]
     echo "===================== show_contents ($3) ====================="
     echo "The contents of $SDR_KIT_ROOT/rust_shared_lib/$3 directory are:"
-    echo "$(ls -al $SDR_KIT_ROOT/rust_shared_lib/$3)"
+    echo "$(ls -al $SDR_KIT_ROOT/rust_shared_lib/$3/release)"
 }
 show_contents i686 i686-linux-android x86
 show_contents x86_64 x86_64-linux-android x86_64
