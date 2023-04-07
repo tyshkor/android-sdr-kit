@@ -93,11 +93,15 @@ echo 'source $HOME/.cargo/env' >> $HOME/.bashrc
 
 cargo install cargo-ndk
 
-rustup target add \
-    aarch64-linux-android \
-    armv7-linux-androideabi \
-    x86_64-linux-android \
-    i686-linux-android
+rustup target install aarch64-linux-android
+rustup target install armv7-linux-androideabi
+rustup target install x86_64-linux-android
+rustup target install i686-linux-android
+
+rustup target add aarch64-linux-android
+rustup target add armv7-linux-androideabi
+rustup target add x86_64-linux-android
+rustup target add i686-linux-android
 
 mkdir $SDR_KIT_ROOT/rust_shared_lib
 
