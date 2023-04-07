@@ -188,7 +188,7 @@ build_adder() { # [arch] [android_abi] [compiler_abi]
     load_android_toolchain $1 $4
     cd adder
     mkdir $SDR_KIT_ROOT/rust_shared_lib/$3
-    cargo ndk -t $3 build --release --target-dir $SDR_KIT_ROOT/rust_shared_lib/$3
+    cargo ndk build --release --target-dir $SDR_KIT_ROOT/rust_shared_lib/$3 --target $2
     echo "The contents of the $SDR_KIT_ROOT/rust_shared_lib/$3/release directory are:"
     echo "$(ls -al $SDR_KIT_ROOT/rust_shared_lib/$3/release)"
     cp $SDR_KIT_ROOT/rust_shared_lib/$3/$2/release/libadder.so $SDR_KIT_ROOT/$3/lib/libadder.so
