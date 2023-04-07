@@ -109,6 +109,7 @@ build_adder() { # [arch] [android_abi] [compiler_abi]
     cd adder
     mkdir $SDR_KIT_ROOT/rust_shared_lib/$3
     cargo build --release --target-dir $SDR_KIT_ROOT/rust_shared_lib/$3
+    cp $SDR_KIT_ROOT/rust_shared_lib/$3/release/libadder.so $SDR_KIT_ROOT/$3/lib/libadder.so
     #  --target $2
     cd ..
 }
