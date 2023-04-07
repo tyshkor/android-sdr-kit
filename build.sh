@@ -178,6 +178,9 @@ build_libusb() {
 }
 build_libusb
 
+echo "The contents of the current directory are:"
+echo "$(ls -al)"
+
 # Build adder
 build_adder() { # [arch] [android_abi] [compiler_abi]
     echo "===================== adder ($3) ====================="
