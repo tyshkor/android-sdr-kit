@@ -183,6 +183,8 @@ build_libusb() {
 }
 build_libusb
 
+sudo apt-get install make
+
 echo "The contents of the current directory are:"
 echo "$(ls -al)"
 
