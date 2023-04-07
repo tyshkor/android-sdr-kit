@@ -57,8 +57,6 @@ wget https://github.com/libusb/libusb/releases/download/v1.0.25/libusb-1.0.25.ta
 tar -xvf libusb-1.0.25.tar.bz2
 mv libusb-1.0.25 libusb
 
-git clone https://github.com/LLNL/zfp.git 
-
 wget https://www.python.org/ftp/python/3.10.10/Python-3.10.10.tgz
 tar -xvf Python-3.10.10.tgz 
 
@@ -85,42 +83,22 @@ wget https://github.com/analogdevicesinc/libad9361-iio/archive/refs/tags/v0.2.ta
 tar -zxvf v0.2.tar.gz
 mv libad9361-iio-0.2 libad9361
 
-#Build ZFP
-build_zfp() { # [arch] [android_abi] [compiler_abi]
-    echo "===================== ZFP ($1) ====================="
-    cd zfp
-    mkdir -p build  
-    cd build  
+apt install -y clang
 
-    cmake $(gen_cmake_args $1) -DBUILD_EXAMPLES=0 -DZFP_WITH_OPENMP=0 ..  
-    #cmake -DDESTINATION=$SDR_KIT_ROOT/$1 .. 
-    make $MAKEOPTS
-    make DESTDIR=$SDR_KIT_ROOT/$1 install
-    cd $SDR_KIT_ROOT
+apt install -y curl
+curl https://sh.rustup.rs -sSf | bash -s -- -y
+. "$HOME/.cargo/env"
+echo 'source $HOME/.cargo/env' >> $HOME/.bashrc
 
-    mkdir -p $1
-    cd $1
+cargo install cargo-ndk
 
-    mkdir -p lib
-    mkdir -p include
+rustup target add \
+    aarch64-linux-android \
+    armv7-linux-androideabi \
+    x86_64-linux-android \
+    i686-linux-android
 
-    cd $SDR_KIT_BUILD/zfp/build/
-    # mv ./lib/libzfp.so.1.0.0 $SDR_KIT_ROOT/$1/lib/libzfp.so
-    # cd ..
-    # cp -r ./include/* $SDR_KIT_ROOT/$1/include/
-
-    cd ../../
-}
-build_zfp armeabi-v7a
-build_zfp arm64-v8a
-
-#Build Python
-# build_python() { # [arch] [android_abi] [compiler_abi]
-#     echo "===================== Python ($1) ====================="
-#     cp /root/SDRPlusPlus/misc_modules/scanner_cross_cross/libs/libpython3.10.s0.1.0 $SDR_KIT_ROOT/$1
-# }
-# build_python armeabi-v7a
-# build_python arm64-v8a
+mkdir $SDR_KIT_ROOT/rust_shared_lib
 
 # Build ZSTD
 build_zstd() { # [arch] [android_abi] [compiler_abi]
@@ -199,6 +177,22 @@ build_libusb() {
     cd ..
 }
 build_libusb
+
+# Build adder
+build_adder() { # [arch] [android_abi] [compiler_abi]
+    echo "===================== adder ($3) ====================="
+    load_android_toolchain $1 $4
+    cd adder
+    mkdir $SDR_KIT_ROOT/rust_shared_lib/$3
+    cargo build --release --target-dir $SDR_KIT_ROOT/rust_shared_lib/$3
+    cp $SDR_KIT_ROOT/rust_shared_lib/$3/release/libadder.so $SDR_KIT_ROOT/$3/lib/libadder.so
+    #  --target $2
+    cd ..
+}
+build_adder i686 i686-linux-android x86
+build_adder x86_64 x86_64-linux-android x86_64
+build_adder armv7a armv7-linux-androideabi armeabi-v7a eabi
+build_adder aarch64 aarch64-linux-android arm64-v8a
 
 # Build volk
 build_volk() { # [android_abi]
@@ -321,3 +315,16 @@ build_libad9361 x86
 build_libad9361 x86_64
 build_libad9361 armeabi-v7a
 build_libad9361 arm64-v8a
+
+echo "The contents of the current directory are:"
+echo "$(ls -al)"
+
+show_contents() { # [arch] [android_abi] [compiler_abi]
+    echo "===================== show_contents ($3) ====================="
+    echo "The contents of $SDR_KIT_ROOT/rust_shared_lib/$3 directory are:"
+    echo "$(ls -al $SDR_KIT_ROOT/rust_shared_lib/$3/release)"
+}
+show_contents i686 i686-linux-android x86
+show_contents x86_64 x86_64-linux-android x86_64
+show_contents armv7a armv7-linux-androideabi armeabi-v7a eabi
+show_contents aarch64 aarch64-linux-android arm64-v8a
