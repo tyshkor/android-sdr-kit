@@ -6,7 +6,7 @@ load_android_toolchain() { # [arch] [compiler_abi]
     export CC="$ANDROID_NDK_TOOLCHAIN/$1-linux-android$2$ANDROID_API_LEVEL-clang"
     export CXX="$ANDROID_NDK_TOOLCHAIN/$1-linux-android$2$ANDROID_API_LEVEL-clang++"
     export AS="$ANDROID_NDK_TOOLCHAIN/$1-linux-android$2$ANDROID_API_LEVEL-as"
-    export ANDROID_NDK="$ANDROID_NDK_TOOLCHAIN"
+    # export ANDROID_NDK="$ANDROID_NDK_TOOLCHAIN"
 }
 
 load_native_toolchain() { # [arch] [compiler_abi]
@@ -188,7 +188,7 @@ build_adder() { # [arch] [android_abi] [compiler_abi]
     load_android_toolchain $1 $4
     cd adder
     mkdir $SDR_KIT_ROOT/rust_shared_lib/$3
-    cargo build --release --target-dir $SDR_KIT_ROOT/rust_shared_lib/$3 --target $2
+    cargo ndk -t $3 --release --target-dir $SDR_KIT_ROOT/rust_shared_lib/$3
     echo "The contents of the $SDR_KIT_ROOT/rust_shared_lib/$3/release directory are:"
     echo "$(ls -al $SDR_KIT_ROOT/rust_shared_lib/$3/release)"
     cp $SDR_KIT_ROOT/rust_shared_lib/$3/$2/release/libadder.so $SDR_KIT_ROOT/$3/lib/libadder.so
