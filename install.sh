@@ -19,7 +19,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 04EE7237B7D453EC 648ACF
 apt update -y
 apt install -y libcrypt-dev
 apt-get update -y
-apt-get install -y gcc-arm-linux-androideabi
+apt-get install -y gcc-arm*
 apt install -y wget git p7zip-full default-jdk build-essential cmake patchelf python3-mako build-essential pkg-config libssl-dev clang libclang-dev libc6-dev gcc-multilib
 apt install -y python3-distutils
 apt install -y python3-apt
