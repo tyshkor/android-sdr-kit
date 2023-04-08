@@ -117,52 +117,52 @@ rustup target add i686-linux-android
 
 mkdir $SDR_KIT_ROOT/rust_shared_lib
 
-# # Build ZSTD
-# build_zstd() { # [arch] [android_abi] [compiler_abi]
-#     echo "===================== ZSTD ($2) ====================="
-#     cd zstd
-#     load_android_toolchain $1 $3
-#     make clean
-#     make $MAKEOPTS
-#     make prefix=/ libdir=/lib DESTDIR=$SDR_KIT_ROOT/$2 install
-#     patchelf --set-soname libzstd.so $SDR_KIT_ROOT/$2/lib/libzstd.so
-#     cd ..
-# }
-# build_zstd i686 x86
-# build_zstd x86_64 x86_64
-# build_zstd armv7a armeabi-v7a eabi
-# build_zstd aarch64 arm64-v8a
+# Build ZSTD
+build_zstd() { # [arch] [android_abi] [compiler_abi]
+    echo "===================== ZSTD ($2) ====================="
+    cd zstd
+    load_android_toolchain $1 $3
+    make clean
+    make $MAKEOPTS
+    make prefix=/ libdir=/lib DESTDIR=$SDR_KIT_ROOT/$2 install
+    patchelf --set-soname libzstd.so $SDR_KIT_ROOT/$2/lib/libzstd.so
+    cd ..
+}
+build_zstd i686 x86
+build_zstd x86_64 x86_64
+build_zstd armv7a armeabi-v7a eabi
+build_zstd aarch64 arm64-v8a
 
-# # Build FFTW3
-# build_fftw() { # [android_abi]
-#     echo "===================== FFTW3 ($1) ====================="
-#     cd fftw
-#     mkdir -p build_$1 && cd build_$1
-#     cmake $(gen_cmake_args $1) -DENABLE_FLOAT=ON ..
-#     make $MAKEOPTS
-#     make DESTDIR=$SDR_KIT_ROOT/$1 install
-#     cd ../../
-# }
-# build_fftw x86
-# build_fftw x86_64
-# build_fftw armeabi-v7a
-# build_fftw arm64-v8a
+# Build FFTW3
+build_fftw() { # [android_abi]
+    echo "===================== FFTW3 ($1) ====================="
+    cd fftw
+    mkdir -p build_$1 && cd build_$1
+    cmake $(gen_cmake_args $1) -DENABLE_FLOAT=ON ..
+    make $MAKEOPTS
+    make DESTDIR=$SDR_KIT_ROOT/$1 install
+    cd ../../
+}
+build_fftw x86
+build_fftw x86_64
+build_fftw armeabi-v7a
+build_fftw arm64-v8a
 
-# # Build codec2
-# build_codec2() { # [android_abi]
-#     echo "===================== Codec2 ($1) ====================="
-#     cd codec2
-#     mkdir -p build_$1 && cd build_$1
-#     load_native_toolchain
-#     cmake $(gen_cmake_args $1) -DUNITTEST=FALSE -DGENERATE_CODEBOOK=$SDR_KIT_BUILD/codec2/build_linux/src/generate_codebook ..
-#     make $MAKEOPTS
-#     make DESTDIR=$SDR_KIT_ROOT/$1 install
-#     cd ../../
-# }
-# build_codec2 x86
-# build_codec2 x86_64
-# build_codec2 armeabi-v7a
-# build_codec2 arm64-v8a
+# Build codec2
+build_codec2() { # [android_abi]
+    echo "===================== Codec2 ($1) ====================="
+    cd codec2
+    mkdir -p build_$1 && cd build_$1
+    load_native_toolchain
+    cmake $(gen_cmake_args $1) -DUNITTEST=FALSE -DGENERATE_CODEBOOK=$SDR_KIT_BUILD/codec2/build_linux/src/generate_codebook ..
+    make $MAKEOPTS
+    make DESTDIR=$SDR_KIT_ROOT/$1 install
+    cd ../../
+}
+build_codec2 x86
+build_codec2 x86_64
+build_codec2 armeabi-v7a
+build_codec2 arm64-v8a
 
 # Build libusb
 build_libusb() {
