@@ -18,7 +18,7 @@ load_native_toolchain() { # [arch] [compiler_abi]
     export CC="gcc"
     export CXX="g++"
     export AS="as"
-    export AR="ar"
+    # export AR="ar"
 }
 
 gen_cmake_args() { # [android_abi]

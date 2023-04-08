@@ -10,7 +10,7 @@ crate-type = ["cdylib"]
 [dependencies]
 env_logger = "0.10.0"
 log = "0.4.14"
-zfp-sys = {version = "*", default-features = false}
+zfp-sys-cc = {version = "*"}
 
 [dependencies.tracing]
 features = ["std"]
