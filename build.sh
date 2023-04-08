@@ -7,10 +7,10 @@ load_android_toolchain() { # [arch] [compiler_abi]
     export LD="$ANDROID_NDK_TOOLCHAIN/$1-linux-android$2$ANDROID_API_LEVEL-clang"
     export CC="$ANDROID_NDK_TOOLCHAIN/$1-linux-android$2$ANDROID_API_LEVEL-clang"
     export CXX="$ANDROID_NDK_TOOLCHAIN/$1-linux-android$2$ANDROID_API_LEVEL-clang++"
-    # export AS="$ANDROID_NDK_TOOLCHAIN/$1-linux-android$2$ANDROID_API_LEVEL-as"
-    export ANDROID_NDK_HOME="$ANDROID_NDK_TOOLCHAIN/../../../../../.."
-    export AR="$ANDROID_NDK_TOOLCHAIN/llvm-ar"
-    export AS="$ANDROID_NDK_TOOLCHAIN/llvm-as"
+    export AS="$ANDROID_NDK_TOOLCHAIN/$1-linux-android$2$ANDROID_API_LEVEL-as"
+    # export ANDROID_NDK_HOME="$ANDROID_NDK_TOOLCHAIN/../../../../../.."
+    # export AR="$ANDROID_NDK_TOOLCHAIN/llvm-ar"
+    # export AS="$ANDROID_NDK_TOOLCHAIN/llvm-as"
 }
 
 load_native_toolchain() { # [arch] [compiler_abi]
