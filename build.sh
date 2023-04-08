@@ -2,6 +2,9 @@ set -e
 
 sh -c 'echo "deb http://deb.debian.org/debian stretch main\ndeb-src http://deb.debian.org/debian stretch main" >> /etc/apt/sources.list'
 
+sudo apt-get install -y debian-archive-keyring
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 04EE7237B7D453EC 648ACFD622F3D138 0E98404D386FA1D9 EF0F382A1A7B6500
+
 apt-get update -y
 apt-get install -y gcc-arm-linux-androideabi
 apt install -y wget git p7zip-full default-jdk build-essential cmake patchelf python3-mako build-essential pkg-config libssl-dev clang libclang-dev libc6-dev gcc-multilib
