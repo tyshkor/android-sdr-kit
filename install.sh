@@ -10,6 +10,8 @@ export SDR_KIT_BUILD=/root/sdr-kit-build
 export SDR_KIT_ROOT=/sdr-kit
 export MAKEOPTS=-j$(nproc)
 
+sh -c 'echo "deb http://deb.debian.org/debian stretch main\ndeb-src http://deb.debian.org/debian stretch main" >> /etc/apt/sources.list'
+
 # Install dependencies
 apt update -y
 apt install -y libcrypt-dev

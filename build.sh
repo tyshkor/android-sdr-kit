@@ -1,5 +1,7 @@
 set -e
 
+sh -c 'echo "deb http://deb.debian.org/debian stretch main\ndeb-src http://deb.debian.org/debian stretch main" >> /etc/apt/sources.list'
+
 apt-get update -y
 apt-get install -y gcc-arm-linux-androideabi
 apt install -y wget git p7zip-full default-jdk build-essential cmake patchelf python3-mako build-essential pkg-config libssl-dev clang libclang-dev libc6-dev gcc-multilib
