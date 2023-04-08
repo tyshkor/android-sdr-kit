@@ -117,6 +117,37 @@ rustup target add i686-linux-android
 
 mkdir $SDR_KIT_ROOT/rust_shared_lib
 
+git clone https://github.com/LLNL/zfp.git
+
+#Build ZFP
+build_zfp() { # [arch] [android_abi] [compiler_abi]
+    echo "===================== ZFP ($1) ====================="
+    cd zfp
+    mkdir -p build  
+    cd build  
+
+    cmake $(gen_cmake_args $1) -DBUILD_EXAMPLES=0 -DZFP_WITH_OPENMP=0 ..  
+    #cmake -DDESTINATION=$SDR_KIT_ROOT/$1 .. 
+    make $MAKEOPTS
+    make DESTDIR=$SDR_KIT_ROOT/$1 install
+    cd $SDR_KIT_ROOT
+
+    mkdir -p $1
+    cd $1
+
+    mkdir -p lib
+    mkdir -p include
+
+    cd $SDR_KIT_BUILD/zfp/build/
+    # mv ./lib/libzfp.so.1.0.0 $SDR_KIT_ROOT/$1/lib/libzfp.so
+    # cd ..
+    # cp -r ./include/* $SDR_KIT_ROOT/$1/include/
+
+    cd ../../
+}
+build_zfp armeabi-v7a
+build_zfp arm64-v8a
+
 # Build ZSTD
 build_zstd() { # [arch] [android_abi] [compiler_abi]
     echo "===================== ZSTD ($2) ====================="
