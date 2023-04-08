@@ -2,7 +2,7 @@ use core::slice;
 use std::os::raw::c_void;
 
 use log::info;
-use zfp_sys::*;
+use zfp_sys_cc::*;
 
 #[no_mangle]
 pub extern "C" fn add_numbers(a: i32, b: i32) -> i32 {
