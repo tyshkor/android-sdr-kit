@@ -1,5 +1,7 @@
 set -e
 
+apt install -y wget git p7zip-full default-jdk build-essential cmake patchelf python3-mako build-essential pkg-config libssl-dev clang libclang-dev
+
 # Helper functions
 load_android_toolchain() { # [arch] [compiler_abi]
     export LD="$ANDROID_NDK_TOOLCHAIN/$1-linux-android$2$ANDROID_API_LEVEL-clang"

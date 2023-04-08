@@ -13,7 +13,7 @@ export MAKEOPTS=-j$(nproc)
 # Install dependencies
 apt update -y
 apt install -y libcrypt-dev
-apt install -y wget git p7zip-full default-jdk build-essential cmake patchelf python3-mako
+apt install -y wget git p7zip-full default-jdk build-essential cmake patchelf python3-mako build-essential pkg-config libssl-dev clang libclang-dev
 apt install -y python3-distutils
 apt install -y python3-apt
 
