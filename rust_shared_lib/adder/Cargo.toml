@@ -5,7 +5,7 @@ edition = "2021"
 
 [lib]
 name = "adder"
-crate-type = ["cdylib"]
+crate-type = ["staticlib"]
 
 [dependencies]
 env_logger = "0.10.0"
