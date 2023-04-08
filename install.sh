@@ -12,9 +12,7 @@ export MAKEOPTS=-j$(nproc)
 
 apt-get update -y
 sh -c 'echo "deb http://deb.debian.org/debian stretch main\ndeb-src http://deb.debian.org/debian stretch main" >> /etc/apt/sources.list'
-apt install -y wget
-wget http://ftp.debian.org/debian/pool/main/d/debian-archive-keyring/debian-archive-keyring_2019.1_all.deb
-dpkg -i debian-archive-keyring_2019.1_all.deb
+apt install -y debian-archive-keyring
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 04EE7237B7D453EC 648ACFD622F3D138 0E98404D386FA1D9 EF0F382A1A7B6500
 
 # Install dependencies
