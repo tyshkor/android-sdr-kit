@@ -1,6 +1,6 @@
 set -e
 
-apt install -y wget git p7zip-full default-jdk build-essential cmake patchelf python3-mako build-essential pkg-config libssl-dev clang libclang-dev
+apt install -y wget git p7zip-full default-jdk build-essential cmake patchelf python3-mako build-essential pkg-config libssl-dev clang libclang-dev libc6-dev
 
 # Helper functions
 load_android_toolchain() { # [arch] [compiler_abi]
