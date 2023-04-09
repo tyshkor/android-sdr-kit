@@ -1,5 +1,11 @@
 use core::slice;
-use std::os::raw::c_void;
+
+use flate2::Compression;
+use flate2::write::DeflateEncoder;
+use std::io::Write;
+
+use flate2::read::DeflateDecoder;
+use std::io::Read;
 
 // use log::info;
 // use zfp_sys::*;
@@ -12,8 +18,43 @@ pub extern "C" fn add_numbers(a: i32, b: i32) -> i32 {
 
 #[no_mangle]
 pub unsafe extern "C" fn compress_array(number_lines: i32, data: *mut f32) -> i32 {
-    println!("RUST PRINTLN compress_array got into");
-    let q = 6 * number_lines;
+
+    let input = slice::from_raw_parts(data, 30*30*30);
+    let mut deflater = DeflateEncoder::new(Vec::new(), Compression::default());
+
+    let bytes = unsafe {
+        // SAFETY: this is safe because the size of a `f32` is known and it
+        // has the same alignment as a `u8`
+        std::slice::from_raw_parts(
+            input.as_ptr() as *const u8,
+            input.len() * std::mem::size_of::<f32>()
+        )
+    };
+
+    deflater.write_all(bytes).unwrap();
+    let defl = deflater.finish().unwrap();
+
+    let mut deflater = DeflateDecoder::new(defl.as_slice());
+
+    let mut bytes = Vec::new();
+    deflater.read_to_end(&mut bytes).unwrap();
+
+    let floats = unsafe {
+        // SAFETY: this is safe because the size of a `f32` is known and it
+        // has the same alignment as a `u8`
+        std::slice::from_raw_parts(
+            bytes.as_ptr() as *const f32,
+            bytes.len() / std::mem::size_of::<f32>()
+        )
+    };
+
+    let vvec = floats.to_vec();
+
+    return vvec.len() as i32;
+
+
+    // println!("RUST PRINTLN compress_array got into");
+    // let q = 6 * number_lines;
     // let res = env_logger::try_init();
     // if res.is_err(){
     //     info!("Logger cannot be set anew because : {:#?}", res.err().unwrap().to_string());
@@ -93,7 +134,7 @@ pub unsafe extern "C" fn compress_array(number_lines: i32, data: *mut f32) -> i3
     // zfp_stream_close(stream);
     // println!("RUST PRINTLN compress_array zfp_stream_close");
 
-    return 0;
+    //return 0;
 
     // //based on examples/simple.c
     // let nx = 100;
