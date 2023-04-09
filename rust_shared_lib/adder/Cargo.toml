@@ -10,7 +10,7 @@ crate-type = ["staticlib"]
 [dependencies]
 env_logger = "0.10.0"
 log = "0.4.14"
-zfp-sys-cc = {version = "*"}
+zfp-sys = {version = "*", features = ["static"]}
 
 [dependencies.tracing]
 features = ["std"]
