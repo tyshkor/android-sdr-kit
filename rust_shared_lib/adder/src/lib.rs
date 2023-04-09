@@ -1,14 +1,11 @@
 use core::slice;
 
 use flate2::Compression;
-use flate2::write::DeflateEncoder;
+use flate2::write::{DeflateEncoder};
 use std::io::Write;
 
-use flate2::read::DeflateDecoder;
+use flate2::read::{DeflateDecoder};
 use std::io::Read;
-
-// use log::info;
-// use zfp_sys::*;
 
 #[no_mangle]
 pub extern "C" fn add_numbers(a: i32, b: i32) -> i32 {
@@ -17,22 +14,29 @@ pub extern "C" fn add_numbers(a: i32, b: i32) -> i32 {
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn compress_array(number_lines: i32, data: *mut f32) -> i32 {
-
-    let input = slice::from_raw_parts(data, 30*30*30);
-    let mut deflater = DeflateEncoder::new(Vec::new(), Compression::default());
+pub unsafe extern "C" fn compress_array(number_lines: i32, data: *mut i16) -> i32 {
+    
+    let input = slice::from_raw_parts(data, 60*60*60);
+    for i in 0..20{
+        println!("Element to encode with id : {:?} is : {:?}", i , input[i]);
+    }
+    let compression_level = number_lines as u32;
+    println!("Compressio level set to {compression_level:?}");
+    
+    let mut deflater = DeflateEncoder::new(Vec::new(), Compression::new(compression_level));
 
     let bytes = unsafe {
-        // SAFETY: this is safe because the size of a `f32` is known and it
+        // SAFETY: this is safe because the size of a `i16` is known and it
         // has the same alignment as a `u8`
         std::slice::from_raw_parts(
             input.as_ptr() as *const u8,
-            input.len() * std::mem::size_of::<f32>()
+            input.len() * std::mem::size_of::<i16>()
         )
     };
 
     deflater.write_all(bytes).unwrap();
     let defl = deflater.finish().unwrap();
+    println!("Encoded len is : {:?}", defl.len());
 
     let mut deflater = DeflateDecoder::new(defl.as_slice());
 
@@ -40,101 +44,21 @@ pub unsafe extern "C" fn compress_array(number_lines: i32, data: *mut f32) -> i3
     deflater.read_to_end(&mut bytes).unwrap();
 
     let floats = unsafe {
-        // SAFETY: this is safe because the size of a `f32` is known and it
+        // SAFETY: this is safe because the size of a `i16` is known and it
         // has the same alignment as a `u8`
         std::slice::from_raw_parts(
-            bytes.as_ptr() as *const f32,
-            bytes.len() / std::mem::size_of::<f32>()
+            bytes.as_ptr() as *const i16,
+            bytes.len() / std::mem::size_of::<i16>()
         )
     };
 
     let vvec = floats.to_vec();
 
+    for i in 0..20{
+        println!("Element decoded with id : {:?} is : {:?}", i , vvec[i]);
+    }
+
     return vvec.len() as i32;
-
-
-    // println!("RUST PRINTLN compress_array got into");
-    // let q = 6 * number_lines;
-    // let res = env_logger::try_init();
-    // if res.is_err(){
-    //     info!("Logger cannot be set anew because : {:#?}", res.err().unwrap().to_string());
-    // }
-    // println!("RUST PRINTLN compress_array try_init");
-
-    // let slice_before = slice::from_raw_parts(data, 20);
-    // for i in 0..slice_before.len() {
-    //     info!("Element with id {i:?} is {:?}", slice_before[i])
-    // }
-    // println!("RUST PRINTLN compress_array slice::from_raw_parts(");
-
-    // let nx = 30;
-    // let ny = 30;
-    // let nz = 30;
-    // let nt = 30;
-    // let _tolerance = 256;
-    // let stream = zfp_stream_open(std::ptr::null_mut());
-    // println!("RUST PRINTLN compress_array zfp_stream_open");
-
-    // zfp_stream_set_reversible(stream);
-    // println!("RUST PRINTLN compress_array zfp_stream_set_reversible");
-
-    // let temp_data_type = zfp_type_zfp_type_float;
-    // let field = zfp_field_4d(data as *mut c_void, temp_data_type, nx, ny, nz, nt);
-    // println!("RUST PRINTLN compress_array zfp_field_4d");
-
-    // zfp_field_set_pointer(field, data as *mut c_void);
-    // println!("RUST PRINTLN compress_array zfp_field_set_pointer");
-
-    // let bufsize = zfp_stream_maximum_size(stream, field);
-    // println!("RUST PRINTLN compress_array zfp_stream_maximum_size");
-
-    // let mut buffer: Vec<u8> = vec![0; bufsize as usize];
-
-    // let bstr = stream_open(buffer.as_mut_ptr() as *mut c_void, bufsize);
-    // println!("RUST PRINTLN compress_array stream_open");
-
-    // zfp_stream_set_bit_stream(stream, bstr);
-    // println!("RUST PRINTLN compress_array zfp_stream_set_bit_stream");
-
-    // zfp_compress(stream, field);
-    // info!("Compress assumed successfull");
-    // println!("RUST PRINTLN compress_array zfp_compress");
-
-    // stream_close(bstr);
-
-    // let compressed_size = zfp_stream_compressed_size(stream);
-    // info!("Compressed size of data is : {compressed_size:?}");
-    // println!("RUST PRINTLN compress_array zfp_stream_compressed_size");
-
-    // let bstr = stream_open(buffer.as_mut_ptr() as *mut c_void, compressed_size);
-    // println!("RUST PRINTLN compress_array stream_open");
-
-    // zfp_stream_set_bit_stream(stream, bstr);
-    // println!("RUST PRINTLN compress_array zfp_stream_set_bit_stream");
-
-    // zfp_decompress(stream, field);
-    // info!("Decompress assumed successfull");
-    // println!("RUST PRINTLN compress_array zfp_decompress");
-
-    // let decompressed_data = zfp_field_pointer(field) as *mut f32;
-    // println!("RUST PRINTLN compress_array zfp_field_pointer");
-
-    // let slice_after = slice::from_raw_parts(decompressed_data, 20);
-    // for i in 0..slice_after.len() {
-    //     info!("Element with id {i:?} is {:?}", slice_after[i])
-    // }
-    // println!("RUST PRINTLN compress_array slice::from_raw_parts");
-
-    // stream_close(bstr);
-    // println!("RUST PRINTLN compress_array stream_close");
-
-    // zfp_field_free(field);
-    // println!("RUST PRINTLN compress_array zfp_field_free");
-
-    // zfp_stream_close(stream);
-    // println!("RUST PRINTLN compress_array zfp_stream_close");
-
-    //return 0;
 
     // //based on examples/simple.c
     // let nx = 100;
